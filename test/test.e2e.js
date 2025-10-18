@@ -31,7 +31,7 @@ describe('My Login application', () => {
         await expect($(pageElements.poweredByLink)).toBeExisting()
         await $(pageElements.poweredByLink).click()
         // await expect(browser).toHaveUrl('https://elementalselenium.com/')
-        // await expect(browser).toHaveTitle('Elemental Selenium')          
+         await expect(browser).toHaveTitle('Elemental Selenium')          
 
      // await expect($('#flash')).toMatchElementSnapshot('flashAlert')
     //  await browser.debug()
