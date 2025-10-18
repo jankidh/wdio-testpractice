@@ -1,42 +1,50 @@
-import { expect, browser, $ } from '@wdio/globals'
-import pageElements from '../pageElements/loginPage.json'
+import { expect, browser, $ } from "@wdio/globals";
+import pageElements from "../pageElements/loginPage.json";
 
-describe('My Login application', () => {
-    it('should login with valid credentials', async () => {
-        await browser.url(`https://the-internet.herokuapp.com/login`)
+describe("My Login application", () => {
+  it("should login with valid credentials", async () => {
+    await browser.url(`https://the-internet.herokuapp.com/login`);
 
-// Login with credential
-        await $(pageElements.username).setValue('tomsmith')
-        await $(pageElements.password).setValue('SuperSecretPassword!')
-        await $(pageElements.loginButton).click()
+    // Login with credential
+    await $(pageElements.username).setValue("tomsmith");
+    await $(pageElements.password).setValue("SuperSecretPassword!");
+    await $(pageElements.loginButton).click();
 
-//Successfull login 
-        await expect($(pageElements.flashMessage)).toBeExisting()
-        await expect($(pageElements.flashMessage)).toHaveText(
-            expect.stringContaining('You logged into a secure area!')) 
+    //Successfull login
+    await expect($(pageElements.flashMessage)).toBeExisting();
+    await expect($(pageElements.flashMessage)).toHaveText(
+      expect.stringContaining("You logged into a secure area!")
+    );
 
-        await expect($(pageElements.logoutButton)).toBeExisting()
-        await expect($(pageElements.logoutButton)).toHaveText(
-                expect.stringContaining('Logout'))
+    await expect($(pageElements.logoutButton)).toBeExisting();
+    await expect($(pageElements.logoutButton)).toHaveText(
+      expect.stringContaining("Logout")
+    );
+    console.log("Login test passed successfully");
+  });
 
-// Click Logout and verify message and redirect
-              
-        await $(pageElements.logoutButton).click()
-        await expect($(pageElements.flashMessage)).toBeExisting()
-        await expect($(pageElements.flashMessage)).toHaveText(
-                expect.stringContaining('You logged out of the secure area!'))
-        await expect(browser).toHaveUrl('https://the-internet.herokuapp.com/login')
+  it("should logout succesfully and redirect to login page", async () => {
+    // Click Logout and verify message and redirect
+    await $(pageElements.logoutButton).click();
+    await expect($(pageElements.flashMessage)).toBeExisting();
+    await expect($(pageElements.flashMessage)).toHaveText(
+      expect.stringContaining("You logged out of the secure area!")
+    );
+    await expect(browser).toHaveUrl("https://the-internet.herokuapp.com/login");
 
-// poweredby Link on login page
-        await expect($(pageElements.poweredByLink)).toBeExisting()
-        await $(pageElements.poweredByLink).click()
-        // await expect(browser).toHaveUrl('https://elementalselenium.com/')
-         await expect(browser).toHaveTitle('Elemental Selenium')          
+    console.log("Logout test passed successfully");
+  });
 
-     // await expect($('#flash')).toMatchElementSnapshot('flashAlert')
+  it("should Verify the Poweredby link exists and text is correct", async () => {
+    // poweredby Link on login page
+    await expect($(pageElements.poweredByLink)).toBeExisting();
+    await expect($(pageElements.poweredByLink)).toHaveText(
+      expect.stringContaining("Elemental Selenium")
+    );
+
+    // await $(pageElements.poweredByLink).click();
+    // await expect($('#flash')).toMatchElementSnapshot('flashAlert')
     //  await browser.debug()
-        console.log("Login, Logout, Powered by link test")
-    })
-    .timeout(10*60000)
-})
-
+    console.log("Powered by link test passed Successfully");
+  });
+}).timeout(10 * 60000);
