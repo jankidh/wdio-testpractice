@@ -1,8 +1,5 @@
 {
   "username": "//input[@id='username']",
   "password": "//input[@id='password']",
-  "loginButton": "//button[@type='submit']",
-  "flashMessage": "//*[@id='flash']",
-  "logoutButton": "//*[@href='/logout']",
-  "poweredByLink": "//*[@target='_blank']"
+  "loginButton": "//button[@type='submit']"
 }

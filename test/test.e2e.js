@@ -1,18 +1,13 @@
 import { expect, browser, $ } from "@wdio/globals";
-import pageElements from "../pageElements/loginPage.json";
+import { login } from "../helpers/navHelpers.js";
+import loginPage from "../pageElements/loginPage.json";
+import commonElements from "../pageElements/commonPageElements.json";
 
 describe("My Login application", () => {
   it("should login with valid credentials", async () => {
-    await browser.url(`https://the-internet.herokuapp.com/login`);
-
-    // Login with credential
-    await $(pageElements.username).setValue("tomsmith");
-    await $(pageElements.password).setValue("SuperSecretPassword!");
-    await $(pageElements.loginButton).click();
-
     //Successfull login
-    await expect($(pageElements.flashMessage)).toBeExisting();
-    await expect($(pageElements.flashMessage)).toHaveText(
+    await expect($(commonElements.flashMessage)).toBeExisting();
+    await expect($(commonElements.flashMessage)).toHaveText(
       expect.stringContaining("You logged into a secure area!")
     );
 
