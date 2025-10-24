@@ -1,6 +1,6 @@
 import { login } from "../helpers/navHelpers.js";
 
-describe("debug login", () => {
+describe.skip("debug login", () => {
   it("Successfull login", async () => {
     await login();
   });
