@@ -1,16 +1,15 @@
-import { baseUrl, userId, userSecretKey } from "../constants.js";
+import { userId, userSecretKey } from "../constants.js";
 import loginPage from "../pageElements/loginPage.json";
 import commonElements from "../pageElements/commonPageElements.json";
 
 export const login = async (params = {}) => {
   const { username = userId, password = userSecretKey } = params;
-  const loginPageUrl = `${baseUrl}/login`;
-  await browser.url(loginPageUrl);
+  await browser.url(`/login`);
   await $(loginPage.username).setValue(username);
   await $(loginPage.password).setValue(password);
   await $(loginPage.loginButton).click();
   await $(commonElements.flashMessage).waitForExist({
-    timeoutMsg: `login action is failed due to timeout, credentials : username = ${username}, password = ${password}; url=${loginPageUrl}`,
+    timeoutMsg: `login action is failed due to timeout, credentials : username = ${username}, password = ${password}; `,
   });
 };
 
@@ -23,9 +22,23 @@ export const logout = async () => {
   await $(commonElements.logoutButton).waitForExist({
     reverse: true,
     timeout: 30000,
-    timeoutMsg: `Logiut button ${commonElements.logoutButton}still displayed after timeout`,
+    timeoutMsg: `Logout button ${commonElements.logoutButton}still displayed after timeout`,
   });
-  await $(commonElements.flashMessage).waitForExist({
-    timeoutMsg: "Logout flash message did not appear after logout",
+  await $(loginPage.loginButton).waitForExist({
+    timeoutMsg: "Login button is not appeared after logout",
   });
+};
+
+export const switchToNewTab = async (numberOfTabs = 2) => {
+  await browser.waitUntil(
+    async () => (await browser.getWindowHandles()).length === numberOfTabs,
+    {
+      timeout: 30000,
+      timeoutMsg: `number of tabs doesn't match numberOfTabs = ${numberOfTabs}`,
+    }
+  );
+  const openWindows = await browser.getWindowHandles(),
+    newTabHandle = openWindows[openWindows.length - 1];
+
+  await browser.switchWindow(newTabHandle);
 };
