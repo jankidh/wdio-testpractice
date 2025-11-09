@@ -22,7 +22,7 @@ export const logout = async () => {
   await $(commonElements.logoutButton).waitForExist({
     reverse: true,
     timeout: 30000,
-    timeoutMsg: `Logout button ${commonElements.logoutButton}still displayed after timeout`,
+    timeoutMsg: `Logout button ${commonElements.logoutButton} still displayed after timeout`,
   });
   await $(loginPage.loginButton).waitForExist({
     timeoutMsg: "Login button is not appeared after logout",
@@ -34,7 +34,11 @@ export const switchToNewTab = async (numberOfTabs = 2) => {
     async () => (await browser.getWindowHandles()).length === numberOfTabs,
     {
       timeout: 30000,
-      timeoutMsg: `number of tabs doesn't match numberOfTabs = ${numberOfTabs}`,
+      timeoutMsg: `Current number of tabs ${
+        (
+          await browser.getWindowHandles()
+        ).length
+      } doesn't match expected numbers ${numberOfTabs}`,
     }
   );
   const openWindows = await browser.getWindowHandles(),
