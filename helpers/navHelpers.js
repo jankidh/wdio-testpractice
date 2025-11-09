@@ -9,7 +9,7 @@ export const login = async (params = {}) => {
   await $(loginPage.password).setValue(password);
   await $(loginPage.loginButton).click();
   await $(commonElements.flashMessage).waitForExist({
-    timeoutMsg: `login action is failed due to timeout, credentials : username = ${username}, password = ${password}; `,
+    timeoutMsg: `Login action failed due to timeout. Current page: ${await browser.getUrl()}; Credentials: username = ${username}, password = ${password} `,
   });
 };
 
