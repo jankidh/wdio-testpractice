@@ -1,0 +1,5 @@
+{
+  "flashMessage": "//*[@id='flash']",
+  "logoutButton": "//*[@href='/logout']",
+  "poweredByLink": "//*[@target='_blank']"
+}
