@@ -3,8 +3,8 @@ import { login, logout, switchToNewTab } from "../helpers/navHelpers.js";
 import commonElements from "../pageElements/commonPageElements.json";
 import { baseUrl } from "../constants.js";
 
-describe("My Login application", () => {
-  context("Successfull Login  and Logout verifications", async () => {
+describe("Authentication and Navigation Flows Test Suite", () => {
+  context("Successfull login and logout verifications", async () => {
     beforeEach("Login", async () => {
       await login();
     });
@@ -46,8 +46,8 @@ describe("My Login application", () => {
     });
   });
 
-  context("poweredByLink verifications", async () => {
-    it("should Verify the Poweredby link exists and verify redirection", async () => {
+  context("PoweredByLink verifications", async () => {
+    it("Should Verify the poweredby link exists and verify its redirection", async () => {
       await browser.url(`/login`);
       await expect($(commonElements.poweredByLink)).toBeExisting();
       await $(commonElements.poweredByLink).click();
